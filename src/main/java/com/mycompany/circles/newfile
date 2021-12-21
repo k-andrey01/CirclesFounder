@@ -1,0 +1,215 @@
+ Color ccolor = new Color(newImage.getRGB(0,0));
+            int cgrey = ccolor.getRed();
+            res1.setRGB(0, 0, 0);
+            int k=7;
+            for (int x = 0; x < newImage.getWidth(); x++) {
+                for (int y = 0; y < newImage.getHeight(); y++) {
+                    Color color = new Color(newImage.getRGB(x,y));
+                    int grey = color.getRed();
+                    if (x+1<newImage.getWidth()){
+                        Color colors = new Color(newImage.getRGB(x+1,y));
+                        int greys = colors.getRed();
+                        if (Math.abs(grey-greys)>k){
+                            Color c = new Color(255,255,255);
+                            res1.setRGB(x+1, y, c.getRGB());
+                        }else{
+                            Color c = new Color(0,0,0);
+                            res1.setRGB(x+1, y, c.getRGB());
+                        }
+                    }
+                    if (y+1<newImage.getHeight()){
+                        Color colors = new Color(newImage.getRGB(x,y+1));
+                        int greys = colors.getRed();
+                        if (Math.abs(grey-greys)>k){
+                            Color c = new Color(255,255,255);
+                            res1.setRGB(x, y+1, c.getRGB());
+                        }else{
+                            Color c = new Color(0,0,0);
+                            res1.setRGB(x, y+1, c.getRGB());
+                        }
+                    }
+                    if (x+1<newImage.getWidth()&&y+1<newImage.getHeight()){
+                        Color colors = new Color(newImage.getRGB(x+1,y+1));
+                        int greys = colors.getRed();
+                        if (Math.abs(grey-greys)>k){
+                            Color c = new Color(255,255,255);
+                            res1.setRGB(x+1, y+1, c.getRGB());
+                        }else{
+                            Color c = new Color(0,0,0);
+                            res1.setRGB(x+1, y+1, c.getRGB());
+                        }
+                    }
+                }
+            }
+            File output3 = new File("C:\\Users\\russi\\Documents\\NetBeansProjects\\Circle\\src\\main\\java\\com\\mycompany\\circle\\football_lines.jpg");
+            ImageIO.write(res1, "jpg", output3);
+
+
+
+
+
+
+
+
+int maxR = 250;
+            int R=0;
+            int[][][] H = new int[mImg.getWidth()][mImg.getHeight()][maxR];
+            for (int x = 0; x<mImg.getWidth(); x++){
+                for (int y = 0; y<mImg.getWidth(); y++){
+                    int a=0; int b=0;
+                    while(Math.pow(x-a, 2)<mImg.getWidth()){
+                        while(Math.pow(y-b, 2)<mImg.getHeight()){
+                            R = (int)(Math.pow(x-a, 2)+Math.pow(y-b, 2));
+                            Color co = new Color(mImg.getRGB(x+R, y+R));
+                            if (co.getBlue()==255){
+                            H[a][b][R]++;
+                            }
+                        }
+                    }
+                }
+            }
+            int max=0;
+            int i=0, j=0, rad=0;
+            for (int a = 0; a<mImg.getWidth(); a++){
+                for (int b = 0; b<mImg.getWidth(); b++){
+                    for (int r=0; r<=maxR; r++){
+                        if (H[a][b][r]>=max){
+                            max=H[a][b][r];
+                            i=a; j=b; rad=r;
+                        }
+                    }
+                }
+            }
+            Color c = new Color(255,0,0);
+            mImg.setRGB(i+rad,j+rad, c.getRGB());
+            ImageIO.write(mImg, "jpg", output3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for (int y = 1; y < source.getHeight()-1; y++) {
+                for (int x = 1; x < source.getWidth()-1; x++) {
+                    Color colo = new Color(img.getRGB(x,y));
+                    Color colo1 = new Color(img.getRGB(x+1,y));
+                    Color colo2 = new Color(img.getRGB(x,y+1));
+                    Color colo3 = new Color(img.getRGB(x+1,y+1));
+                    Color colo12 = new Color(img.getRGB(x-1,y));
+                    Color colo22 = new Color(img.getRGB(x,y-1));
+                    Color colo32 = new Color(img.getRGB(x-1,y-1));
+                    int count=0;
+                    while (colo.getBlue()>200||colo1.getBlue()>200||colo2.getBlue()>200||colo3.getBlue()>200||colo12.getBlue()>200||colo22.getBlue()>200||colo32.getBlue()>200){
+                        x++;
+                        colo = new Color(img.getRGB(x, y));
+                        count++;
+                    }
+                    if (count<50){
+                        for (int x = 0; x < source.getWidth(); x++) {
+                            Color col = new Color(0,0,0);
+                            res5.setRGB(x, y, col.getRGB());
+                        }
+                    }    
+                }
+            } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  BufferedImage res5 =  new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+           int mWidth = mImg.getWidth()/7;
+           int mHeight = mImg.getHeight()/3;
+           for (int y = 0; y < source.getHeight(); y++) {
+                int count =0;
+                for (int x = 0; x < source.getWidth(); x++) {
+                    Color col = new Color(mImg.getRGB(x, y));
+                    if (col.getBlue()>200){
+                        count++;
+                    }
+                }
+                if (count>=mWidth){
+                    for (int x = 0; x < source.getWidth(); x++) {
+                    Color col = new Color(0,0,0);
+                    res5.setRGB(x, y, col.getRGB());
+                    }
+                }else{
+                   for (int x = 0; x < source.getWidth(); x++) {
+                    Color col = new Color(mImg.getRGB(x,y));
+                    res5.setRGB(x, y, col.getRGB()); 
+                   }
+                }
+            } 
+           File output4 = new File("C:\\Users\\russi\\Documents\\NetBeansProjects\\Circles\\src\\main\\java\\com\\mycompany\\circles\\football_lines_1.jpg");
+            ImageIO.write(res5, "jpg", output4);
+            BufferedImage img = ImageIO.read(output4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int Rmax = 500;
+           int R=0;
+           int Ymin = 50; int Ymax = mImg.getHeight()-50;
+           int Xmin = 50; int Xmax = mImg.getWidth()-50;
+           int[][][] myArr = new int[Xmax-Xmin+1][Ymax-Ymin+1][Rmax+1]; 
+           for (int x=0; x<mImg.getWidth(); x++){
+               for (int y=0; y<mImg.getHeight(); y++){
+                   for (int i =Xmin; i<=Xmax; i++){
+                       for (int j = Ymin; j<=Ymax; j++){
+                           R=(int)(Math.sqrt(Math.pow(x-i,2)+Math.pow(y-j,2)));
+                           if(i+R<mImg.getWidth()&&j+R<mImg.getHeight()){
+                           Color cc=new Color(mImg.getRGB(i+R, j));
+                           Color cc1=new Color(mImg.getRGB(i, j+R));
+                           if (R<=Rmax&&R>25&&(cc.getBlue()>200||cc1.getBlue()>200)){
+                              myArr[i-Xmin][j-Ymin][R]++;
+                           }
+                           }
+                        }           
+                    }
+                }
+            }  
+           int mmax=0, ki=0, kj=0, kz=0;
+           for (int i=0; i<Xmax-Xmin; i++){
+               for (int j=0; j<Ymax-Ymin; j++){
+                   for (int z=0; z<Rmax; z++){
+                       if (myArr[i][j][z]>mmax){
+                           mmax=myArr[i][j][z];
+                           ki=i;
+                           kj=j;
+                           kz=z;
+                           Color t = new Color(255,0,0);
+                           res1.setRGB(ki, kj, t.getRGB());
+                       }
+                   }
+               }
+           }
+           System.out.println(ki+" "+kj+" "+kz);
